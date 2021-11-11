@@ -1,10 +1,14 @@
 # folio_uuid
-A small module for creating deterministic UUIDs (UUID v5) outside of FOLIO when migrating data.
+A python module for creating deterministic UUIDs (UUID v5) outside of FOLIO when migrating data.
 
+# Installation
+The module is uploaded to pypi. Just do    
 
-Wikipedia has an [article on UUID version 5](https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions_3_and_5_(namespace_name-based))
+	pip install folio-uuid
+	
+or   
 
-There are many browser-based tools to create singe UUIDs v5. [UUIDTools](https://www.uuidtools.com/v5) is one of them.
+	pipenv install folio-uuid      
 
 # Overview
 The UUIDs (v5) are contstructed in the following way:
@@ -37,3 +41,9 @@ To install uuidgen on a apt-enabled Linux distribution, use
 		"000000167",
 	    )
 	    assert "a0b4c8a2-01fd-50fd-8158-81bd551412a0" == str(deterministic_uuid)
+	    
+	    
+# References
+Wikipedia has an [article on UUID version 5](https://en.wikipedia.org/wiki/Universally_unique_identifier#Versions_3_and_5_(namespace_name-based))
+
+There are many browser-based tools to create singe UUIDs v5. [UUIDTools](https://www.uuidtools.com/v5) is one of them.
