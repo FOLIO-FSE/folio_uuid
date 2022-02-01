@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name="folio_uuid",
     packages=["folio_uuid"],
-    version="0.2.0",
+    version="0.2.1",
     license="MIT",
     long_description="",
     description="A library for generating predictive uuids for FOLIO data migrations",
