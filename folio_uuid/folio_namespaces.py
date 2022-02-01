@@ -11,6 +11,7 @@ class FOLIONamespaces(enum.Enum):
     holdings = 0
     items = 1
     instances = 2
+    athorities = 14
 
     # SRS
     srs_records = 3
@@ -29,6 +30,7 @@ class FOLIONamespaces(enum.Enum):
     orders = 10
     po_lines = 11
     organizations = 12
+    edifact = 15
 
     # ERM
     # ERM Does not honor generated UUIDs
