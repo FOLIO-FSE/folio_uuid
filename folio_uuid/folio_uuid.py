@@ -25,6 +25,8 @@ class FolioUUID(uuid.UUID):
         legacy_identifier : str
             The actual identifier from the legacy system
         """
+        if not str(legacy_identifier or "").strip():
+            raise ValueError("Legacy Identifier not provided")
         clean_id = self.clean_iii_identifiers(legacy_identifier)
         u = uuid.uuid5(
             self.base_namespace,

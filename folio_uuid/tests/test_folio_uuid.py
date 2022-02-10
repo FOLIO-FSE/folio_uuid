@@ -1,5 +1,7 @@
 # content of test_sample.py
 from uuid import uuid5
+
+import pytest
 from folio_uuid import FolioUUID, FOLIONamespaces
 
 made_up_okapi_url = "https://okapi.folio.ebsco.com"
@@ -35,6 +37,33 @@ def test_deterministic_uuid_generation_sierra_weak_record_key():
         "3696836",
     )
     assert deterministic_uuid
+
+
+def test_deterministic_uuid_generation_empty_legacy_id():
+    with pytest.raises(ValueError):
+        deterministic_uuid = FolioUUID(
+            made_up_okapi_url,
+            FOLIONamespaces.items,
+            "",
+        )
+
+
+def test_deterministic_uuid_generation_space_legacy_id():
+    with pytest.raises(ValueError):
+        deterministic_uuid = FolioUUID(
+            made_up_okapi_url,
+            FOLIONamespaces.items,
+            " ",
+        )
+
+
+def test_deterministic_uuid_generation_none_legacy_id():
+    with pytest.raises(ValueError):
+        deterministic_uuid = FolioUUID(
+            made_up_okapi_url,
+            FOLIONamespaces.items,
+            None,
+        )
 
 
 def test_deterministic_uuid_generation_sierra_strong_record_key():
