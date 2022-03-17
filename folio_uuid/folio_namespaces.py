@@ -14,7 +14,10 @@ class FOLIONamespaces(enum.Enum):
     athorities = 14
 
     # SRS
-    srs_records = 3
+    srs_records_bib = 3
+    srs_records_holdingsrecord = 16
+    srs_records_auth = 17
+    srs_records_edifact = 18
     raw_records = 4
     parsed_records = 5
 

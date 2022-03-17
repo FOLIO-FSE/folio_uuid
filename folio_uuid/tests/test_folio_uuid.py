@@ -148,3 +148,17 @@ def test_obvious_record_numbers_with_check_digits():
 
     for id_combo in ids:
         assert FolioUUID.clean_iii_identifiers(id_combo[0]) == id_combo[1]
+
+
+def test_deterministic_uuid_srs_namespaces():
+    deterministic_uuid_1 = FolioUUID(
+        made_up_okapi_url,
+        FOLIONamespaces.srs_records_holdingsrecord,
+        1,
+    )
+    deterministic_uuid_2 = FolioUUID(
+        made_up_okapi_url,
+        FOLIONamespaces.srs_records_bib,
+        1,
+    )
+    assert str(deterministic_uuid_2) != str(deterministic_uuid_1)
