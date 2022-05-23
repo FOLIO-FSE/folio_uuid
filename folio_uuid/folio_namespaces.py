@@ -46,4 +46,5 @@ class FOLIONamespaces(enum.Enum):
     reserve = 22
 
     # Other
+    note = 23
     other = 13
