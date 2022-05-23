@@ -3,9 +3,9 @@ from distutils.core import setup
 setup(
     name="folio_uuid",
     packages=["folio_uuid"],
-    version="0.2.3",
+    version="0.2.4",
     license="MIT",
-    long_description="",
+    long_description="file: README.md",
     description="A library for generating predictive uuids for FOLIO data migrations",
     author="Theodor Tolstoy",
     author_email="pypi.teddes@tolstoy.se",
