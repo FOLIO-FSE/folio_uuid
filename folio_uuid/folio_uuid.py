@@ -1,6 +1,6 @@
-import uuid
 import math
 import re
+import uuid
 
 from folio_uuid.folio_namespaces import FOLIONamespaces
 
@@ -10,9 +10,7 @@ class FolioUUID(uuid.UUID):
 
     base_namespace = uuid.UUID("8405ae4d-b315-42e1-918a-d1919900cf3f")
 
-    def __init__(
-        self, okapi_url: str, folio_object_type: FOLIONamespaces, legacy_identifier: str
-    ):
+    def __init__(self, okapi_url: str, folio_object_type: FOLIONamespaces, legacy_identifier: str):
         """
         Create a deterministic UUID for a FOLIO tenant
 
@@ -36,7 +34,8 @@ class FolioUUID(uuid.UUID):
 
     @staticmethod
     def calculate_sierra_check_digit(record_number: int) -> str:
-        """Rewritten to python from https://github.com/SydneyUniLibrary/sierra-record-check-digit/blob/master/index.js"""
+        """Rewritten to python from
+        https://github.com/SydneyUniLibrary/sierra-record-check-digit/blob/master/index.js"""
         m = 2
         x = 0
         i = record_number

@@ -28,7 +28,7 @@ class FOLIONamespaces(enum.Enum):
     # Users (8-9, 23)
     users = 8
     permissions_users = 9
-    request_preference = 23
+    request_preference = 24
 
     # Acquisitions (10-12, 15)
     orders = 10
