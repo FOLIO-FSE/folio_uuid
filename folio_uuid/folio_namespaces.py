@@ -11,7 +11,7 @@ class FOLIONamespaces(enum.Enum):
     holdings = 0
     items = 1
     instances = 2
-    athorities = 14
+    authorities = 14
 
     # SRS (3-5, 16-18)
     srs_records_bib = 3
