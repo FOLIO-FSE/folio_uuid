@@ -21,9 +21,10 @@ class FOLIONamespaces(enum.Enum):
     raw_records = 4
     parsed_records = 5
 
-    # Circulation (6-7)
+    # Circulation (6-7, 25)
     loans = 6
     requests = 7
+    fees_fines = 25
 
     # Users (8-9, 23)
     users = 8
