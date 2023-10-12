@@ -162,3 +162,20 @@ def test_deterministic_uuid_srs_namespaces():
         1,
     )
     assert str(deterministic_uuid_2) != str(deterministic_uuid_1)
+
+def test_deterministic_uuid_with_tenant_id():
+    with_tenant_id = FolioUUID(
+        made_up_okapi_url,
+        FOLIONamespaces.instances,
+        "b1234567",
+        "diku"
+    )
+
+    without_tenant_id = FolioUUID(
+        made_up_okapi_url,
+        FOLIONamespaces.instances,
+        "b1234567"
+    )
+    assert str(with_tenant_id) == '053f8903-2be6-5fe4-985c-6fc6f2dbb566'
+    assert str(without_tenant_id) == '27d1e3f0-35a7-53fe-99ff-7bdb492bff49'
+    
