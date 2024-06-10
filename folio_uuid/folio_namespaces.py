@@ -37,6 +37,14 @@ class FOLIONamespaces(enum.Enum):
     organizations = 12
     edifact = 15
 
+    # Finance (26-31)
+    fiscal_years = 26
+    ledgers = 27
+    funds = 28
+    groups = 29
+    budgets = 30
+    transactions = 31
+
     # ERM
     # ERM Does not honor generated UUIDs
 
