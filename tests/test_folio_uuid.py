@@ -144,6 +144,8 @@ def test_obvious_record_numbers_with_check_digits():
         [".b12345", ".b12345"],
         [".b4711652@", ".b4711652@"],
         [".b4711652@toolong", ".b4711652@toolong"],
+        [".b123456", "b123456"],
+        [".b123456@abc", "b123456"],
     ]
 
     for id_combo in ids:
@@ -163,19 +165,33 @@ def test_deterministic_uuid_srs_namespaces():
     )
     assert str(deterministic_uuid_2) != str(deterministic_uuid_1)
 
+
 def test_deterministic_uuid_with_tenant_id():
     with_tenant_id = FolioUUID(
-        made_up_okapi_url,
-        FOLIONamespaces.instances,
-        "b1234567",
-        "diku"
+        made_up_okapi_url, FOLIONamespaces.instances, "b1234567", tenant_id="diku"
     )
 
-    without_tenant_id = FolioUUID(
-        made_up_okapi_url,
+    without_tenant_id = FolioUUID(made_up_okapi_url, FOLIONamespaces.instances, "b1234567")
+    assert str(with_tenant_id) == "053f8903-2be6-5fe4-985c-6fc6f2dbb566"
+    assert str(without_tenant_id) == "27d1e3f0-35a7-53fe-99ff-7bdb492bff49"
+
+
+def test_deterministic_uuid_with_okapi_url():
+    with_okapi_url = FolioUUID(
+        "diku",
         FOLIONamespaces.instances,
-        "b1234567"
+        "b1234567",
+        okapi_url="https://okapi-bugfest-juniper.folio.ebsco.com",
     )
-    assert str(with_tenant_id) == '053f8903-2be6-5fe4-985c-6fc6f2dbb566'
-    assert str(without_tenant_id) == '27d1e3f0-35a7-53fe-99ff-7bdb492bff49'
-    
+    with_okapi_url_and_tenant_id = FolioUUID(
+        "diku",
+        FOLIONamespaces.instances,
+        "b1234567",
+        tenant_id="diku2",
+        okapi_url="https://okapi-bugfest-juniper.folio.ebsco.com",
+    )
+
+    without_okapi_url = FolioUUID("diku", FOLIONamespaces.instances, "b1234567")
+    assert str(with_okapi_url) == "75d8dd3e-0d9b-55d3-a932-2d5a8012258b"
+    assert str(without_okapi_url) == "09862916-5d01-55e4-88ff-18be90c64e6e"
+    assert str(with_okapi_url_and_tenant_id) == "8514d3a7-83be-5d4e-88a2-013e2ead3339"
