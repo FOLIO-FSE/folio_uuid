@@ -1,0 +1,28 @@
+name: Test and Build
+
+on: push
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', "3.12", "3.13"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        uv sync --locked --all-extras --dev
+    - name: Lint with ruff
+      run: |
+        uv run ruff check
+    - name: Test with pytest
+      run: |
+        uv run pytest
