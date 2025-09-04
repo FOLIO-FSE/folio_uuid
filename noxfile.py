@@ -38,13 +38,39 @@ def black(session):
 def safety(session):
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
-            "poetry",
+            "uv",
             "export",
-            "--dev",
+            "--all-groups",
             "--format=requirements.txt",
-            "--without-hashes",
-            f"--output={requirements.name}",
+            "--no-hashes",
+            f"--output-file={requirements.name}",
             external=True,
         )
-        session.install("safety")
-        session.run("safety", "check", f"--file={requirements.name}", "--full-report")
+        session.run(
+            "uvx",
+            "pysentry-rs",
+            "--requirements-files",
+            f"{requirements.name}",
+            external=True,
+        )
+
+
+@nox.session()
+def licenses(session):
+    with tempfile.NamedTemporaryFile() as requirements:
+        session.run(
+            "uv",
+            "export",
+            "--all-groups",
+            "--format=requirements.txt",
+            "--no-hashes",
+            f"--output-file={requirements.name}",
+            external=True,
+        )
+        session.run(
+            "uvx",
+            "licensecheck",
+            "--requirements-paths",
+            f"{requirements.name}",
+            external=True,
+        )
