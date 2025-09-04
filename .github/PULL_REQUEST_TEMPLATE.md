@@ -18,7 +18,7 @@ You can link to an Issue by saying something like "Fixes #1" -->
 <!-- This serves as gentle reminder for common tasks. Confirm these are done and check all that apply. -->
 - [ ] Ran `nox -rs safety`.
 - [ ] Tests cover new or modified code.
-- [ ] Ran test suite: `nox -rs tests`
+- [ ] Ran test suite: `uv run pytest`
 - [ ] README updated
 
 ## Warning Checklist
