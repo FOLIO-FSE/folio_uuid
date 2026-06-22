@@ -1,8 +1,8 @@
 # content of test_sample.py
 
 import pytest
-from folio_uuid import FOLIONamespaces
-from folio_uuid import FolioUUID
+
+from folio_uuid import FOLIONamespaces, FolioUUID
 
 made_up_okapi_url = "https://okapi.folio.ebsco.com"
 
@@ -166,6 +166,15 @@ def test_deterministic_uuid_srs_namespaces():
     assert str(deterministic_uuid_2) != str(deterministic_uuid_1)
 
 
+def test_deterministic_uuid_boundwithparts_namespace():
+    deterministic_uuid = FolioUUID(
+        made_up_okapi_url,
+        FOLIONamespaces.boundWithParts,
+        "test_bwp_001",
+    )
+    assert "3cf57ce8-130f-5e74-a2b2-9378f0128a87" == str(deterministic_uuid)
+
+
 def test_deterministic_uuid_with_tenant_id():
     with_tenant_id = FolioUUID(
         made_up_okapi_url, FOLIONamespaces.instances, "b1234567", tenant_id="diku"
@@ -195,3 +204,19 @@ def test_deterministic_uuid_with_okapi_url():
     assert str(with_okapi_url) == "75d8dd3e-0d9b-55d3-a932-2d5a8012258b"
     assert str(without_okapi_url) == "09862916-5d01-55e4-88ff-18be90c64e6e"
     assert str(with_okapi_url_and_tenant_id) == "8514d3a7-83be-5d4e-88a2-013e2ead3339"
+
+
+def test_deterministic_uuid_with_really_long_url_as_legacy_ids():
+    tenant_id = "diku"
+    namespace = FOLIONamespaces.holdings
+    long_856_url_1 = "https://journals.sagepub.com/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/20539517221148612"
+    long_856_url_2 = "https://journals.sagepub.com/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/doi/pdf/10.1177/20539517221148613"
+    assert FolioUUID(
+        tenant_id,
+        namespace,
+        long_856_url_1,
+    ) != FolioUUID(
+        tenant_id,
+        namespace,
+        long_856_url_2,
+    )

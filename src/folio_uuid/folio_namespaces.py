@@ -7,11 +7,12 @@ class FOLIONamespaces(enum.Enum):
     unique deterministic uuids within a folio tenant
     """
 
-    # Inventory (0-2, 14)
+    # Inventory (0-2, 14, 32)
     holdings = 0
     items = 1
     instances = 2
     authorities = 14
+    boundWithParts = 32
 
     # SRS (3-5, 16-18)
     srs_records_bib = 3
@@ -53,7 +54,13 @@ class FOLIONamespaces(enum.Enum):
     course_listing = 20
     instructor = 21
     reserve = 22
+    courses = 19
+    course_listings = 20
+    instructors = 21
+    reserves = 22
 
-    # Other
+    # Other (13, 23)
     note = 23
     other = 13
+    notes = 23
+    others = 13
